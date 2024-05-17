@@ -17,6 +17,10 @@ export default function StartScreen() {
     function goToLogin() {
         router.push('/auth/signin')
     }
+
+    function goToApp() {
+        router.push('/p')
+    }
     return (
         <View style={{ ...startStyles.container }}>
             <StatusBar statusBarStyle='light-content' />
@@ -64,7 +68,7 @@ export default function StartScreen() {
                     </View>
                 </View>
 
-                <Pressable style={styles.button}>
+                <Pressable style={styles.button} onPress={goToApp}>
                     <Text style={styles.text}>Proceed</Text>
                 </Pressable>
                 <View style={{ paddingVertical: 20 }}>
@@ -74,8 +78,8 @@ export default function StartScreen() {
                     <Text style={{ color: "#84838B", textAlign: "center" }}> Do you have an account? </Text>
                 </View>
 
-                <Pressable style={styles.button} onPress={goToLogin}>
-                    <Text style={styles.text}>Sign in</Text>
+                <Pressable style={styles.buttonWiithoutBackground} onPress={goToLogin}>
+                    <Text style={{ ...styles.text, ...styles.textOrange }}>Sign in</Text>
                 </Pressable>
             </View>
 
@@ -96,6 +100,7 @@ const startStyles = StyleSheet.create({
         width: "100%",
         padding: 20,
         borderTopLeftRadius: 20,
+        // paddingBottom: 100,
         borderTopRightRadius: 20,
         flexDirection: "column",
         backgroundColor: "#fff",
@@ -140,4 +145,21 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: 'white',
     },
+    buttonWiithoutBackground: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 10,
+        shadow: "none",
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderBlockColor: 'orange',
+        borderLeftColor: "orange",
+        borderRightColor: "orange",
+        color: "orange"
+    },
+    textOrange: {
+        color: "orange"
+    }
 });

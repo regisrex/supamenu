@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import { AtSymbolIcon, LockClosedIcon } from 'react-native-heroicons/outline'
 import Logo from "../../components/Logo";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 export default function StartScreen() {
+    const router = useRouter()
     return (
         <View style={{ ...startStyles.container }}>
             <StatusBar statusBarStyle='light-content' />
@@ -57,7 +58,7 @@ export default function StartScreen() {
                     <Text style={{ color: "#84838B", textAlign: "center" }}> You don't  have an acoount ? </Text>
                 </View>
 
-                <Pressable style={styles.buttonWiithoutBackground}>
+                <Pressable style={styles.buttonWiithoutBackground} onPress={() => router.push("/auth/start")}>
                     <Text style={{ ...styles.text, ...styles.textOrange }}>Get started</Text>
                 </Pressable>
             </View>
@@ -78,6 +79,8 @@ const startStyles = StyleSheet.create({
     form: {
         width: "100%",
         padding: 20,
+        paddingVertical: 30,
+        // paddingBottom: 100,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         flexDirection: "column",

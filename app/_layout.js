@@ -1,5 +1,5 @@
 import { Slot } from "expo-router"
-import { View } from "react-native"
+import { SafeAreaView, View } from "react-native"
 import { useFonts } from 'expo-font'
 
 export default function BaseLayout() {
@@ -8,8 +8,11 @@ export default function BaseLayout() {
     });
     console.log(fontsLoaded)
     return (
+
+        // <SafeAreaView>
         <View style={{ flex: 1, height: "100%", backgroundColor: 'aliceblue', fontFamily: "DM_Sans" }}>
             <Slot />
         </View>
+        // </SafeAreaView>
     )
 }
