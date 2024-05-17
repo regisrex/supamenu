@@ -1,6 +1,6 @@
 import { Link, Slot, usePathname, useRouter } from "expo-router"
 import { useState } from "react"
-import { View, SafeAreaView, StyleSheet, Touchable, Text, FlatList, Pressable, ScrollView } from "react-native"
+import { View, SafeAreaView, StyleSheet, Touchable, Text, FlatList, Pressable, ScrollView, Platform } from "react-native"
 import { HomeIcon, ShoppingBagIcon, PlusCircleIcon, UserCircleIcon, BellAlertIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
 
 
@@ -50,10 +50,11 @@ export default function BaseLayout() {
     return (
         <>
             <SafeAreaView style={layoutStyles.layout}>
-                <ScrollView style={layoutStyles.container}>
-                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                        <Text style={{ fontSize: 24, fontWeight: "800" }}> {routes.find(route => route.id == currentRoute).title}</Text>
-                        {/* <Link href={'/p/cart'}>  <ShoppingBagIcon color={"orange"} size={28} /> </Link> */}
+                <ScrollView style={{ ...layoutStyles.container, paddingTop: getPaddingTop(Platform.OS) }}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                        <Text style={{ fontSize: 24, fontWeight: "800" }}>
+                            {routes.find(route => route.id == currentRoute).title}
+                        </Text>
                         <Pressable onPress={() => handleRoutePush(routes.find(r => r.id == 4))} style={{ backgroundColor: currentRoute == 4 ? "orange" : "transparent", padding: 10, borderRadius: 20 }}>
                             <ShoppingBagIcon size={30} color={currentRoute == 4 ? "white" : "orange"} />
                         </Pressable>
@@ -83,7 +84,6 @@ const layoutStyles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: 40,
         paddingHorizontal: 20,
     },
     bottomNavigation: {
@@ -95,3 +95,14 @@ const layoutStyles = StyleSheet.create({
         paddingHorizontal: 20
     }
 })
+
+
+const getPaddingTop = (platform) => {
+    switch (platform) {
+        case "android":
+            return 40;
+            break;
+        default:
+            return 10;
+    }
+}
