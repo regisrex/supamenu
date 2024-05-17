@@ -1,7 +1,9 @@
-import { Slot, usePathname, useRouter } from "expo-router"
+import { Link, Slot, usePathname, useRouter } from "expo-router"
 import { useState } from "react"
 import { View, SafeAreaView, StyleSheet, Touchable, Text, FlatList, Pressable, ScrollView } from "react-native"
-import { HomeIcon, HashtagIcon, PlusCircleIcon, UserCircleIcon, BellAlertIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
+import { HomeIcon, ShoppingBagIcon, PlusCircleIcon, UserCircleIcon, BellAlertIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
+
+
 
 const routes = [
     {
@@ -24,6 +26,12 @@ const routes = [
     },
     {
         id: 4,
+        title: 'Cart',
+        href: '/p/cart',
+        icon: <ShoppingBagIcon />
+    },
+    {
+        id: 5,
         title: 'Profile',
         href: '/p/profile',
         icon: <UserCircleIcon />
@@ -43,12 +51,19 @@ export default function BaseLayout() {
         <>
             <SafeAreaView style={layoutStyles.layout}>
                 <ScrollView style={layoutStyles.container}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Text style={{ fontSize: 24, fontWeight: "800" }}> {routes.find(route => route.id == currentRoute).title}</Text>
+                        {/* <Link href={'/p/cart'}>  <ShoppingBagIcon color={"orange"} size={28} /> </Link> */}
+                        <Pressable onPress={() => handleRoutePush(routes.find(r => r.id == 4))} style={{ backgroundColor: currentRoute == 4 ? "orange" : "transparent", padding: 10, borderRadius: 20 }}>
+                            <ShoppingBagIcon size={30} color={currentRoute == 4 ? "white" : "orange"} />
+                        </Pressable>
+                    </View>
                     <Slot />
                 </ScrollView>
             </SafeAreaView>
             <View style={layoutStyles.bottomNavigation}>
                 {
-                    routes.map((route, i) => (
+                    routes.filter(r => r.href != '/p/cart').map((route, i) => (
                         <Pressable onPress={() => handleRoutePush(route)} key={i} style={{ backgroundColor: currentRoute == route.id ? "orange" : "transparent", padding: 10, borderRadius: 20 }}>
                             <route.icon.type  {...route.icon.props} size={30} color={currentRoute == route.id ? "white" : "#414048"} />
                         </Pressable>
@@ -69,7 +84,7 @@ const layoutStyles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        padding: 10,
+        paddingHorizontal: 20,
     },
     bottomNavigation: {
         flexDirection: 'row',
