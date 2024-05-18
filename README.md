@@ -3,8 +3,8 @@ Class work  ( mobile development with react native )
 
 ### Preview
 Some screens
-|  |  |
-|--|--|
-|![img1](./assets/prev2.png)|![img2](./assets/prev1.png)|
+|  |  |  |
+|--|--|--|
+|![img1](./assets/prev2.png)|![img2](./assets/prev1.png)|![img2](./assets/prev3.png)|
 
-<b> Do not clone :( </b>
+May 2024, by [@regisrex](https://github.com/regisrex)

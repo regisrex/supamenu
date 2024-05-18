@@ -2,21 +2,21 @@ import { Image, Pressable, Text, View } from "react-native";
 import { MinusIcon, ShoppingCartIcon } from 'react-native-heroicons/outline'
 import { useCtx } from "../../../hooks/useCtx";
 import { useEffect, useState } from "react";
+import { pad } from "../../../utils";
 
-function pad(num) {
-    return num < 10 ? `0${num}` : `${num}`
-}
+
 export default function MenuItem({ menuItem }) {
     const { cart, setCart } = useCtx()
     const [inCart, setInCart] = useState(false)
+
     useEffect(() => {
-        const isAdded = cart.some(item => item.id = menuItem.id)
+        const isAdded = cart.some(item => item.id === menuItem.id)
         setInCart(isAdded)
     }, [cart, menuItem])
 
     const toggleAddRemoveFromCart = () => {
         if (inCart) setCart(cart.filter(item => item.id != menuItem.id))
-        else setCart([...cart, menuItem])
+        else setCart([...cart, { ...menuItem, count: 1 }])
     }
     return (
         <View style={{
@@ -57,7 +57,13 @@ export default function MenuItem({ menuItem }) {
                 </Text>
                 <View style={{
                     display: "flex",
-
+                    flexDirection: "row",
+                    gap: 10,
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                }}>
+                    <View style={{
+                        display: "flex",
                     flexDirection: "row",
                     gap: 10,
                     alignItems: "center"
@@ -68,12 +74,15 @@ export default function MenuItem({ menuItem }) {
                     <Text style={{ fontSize: 16, color: "orange" }}>
                         {menuItem.price} $
                     </Text>
-                    <Pressable onPress={toggleAddRemoveFromCart} style={{
+                    </View>
+                    <Pressable onPress={toggleAddRemoveFromCart}
+                        style={{
                         borderWidth: 1,
                         borderColor: "orange",
                         padding: 4,
                         borderRadius: 30
-                    }}>
+                        }}
+                    >
                         {inCart ? <MinusIcon size={18} color={"orange"} /> : <ShoppingCartIcon color={"orange"} size={18} />}
                     </Pressable>
                 </View>
