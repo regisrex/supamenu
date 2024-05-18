@@ -1,7 +1,8 @@
 import { Link, Slot, usePathname, useRouter } from "expo-router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { View, SafeAreaView, StyleSheet, Touchable, Text, FlatList, Pressable, ScrollView, Platform } from "react-native"
-import { HomeIcon, ShoppingBagIcon, PlusCircleIcon, UserCircleIcon, BellAlertIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon } from 'react-native-heroicons/outline'
+import { HomeIcon, ShoppingBagIcon, PlusCircleIcon, UserCircleIcon, BellAlertIcon, MagnifyingGlassCircleIcon, MagnifyingGlassIcon, BuildingStorefrontIcon } from 'react-native-heroicons/outline'
+import CartButton from "../../components/cartButton"
 
 
 
@@ -14,9 +15,9 @@ const routes = [
     },
     {
         id: 2,
-        title: 'Search',
-        href: '/p/search',
-        icon: <MagnifyingGlassIcon />
+        title: 'Restaurants',
+        href: '/p/restaurants',
+        icon: <BuildingStorefrontIcon />
     },
     {
         id: 3,
@@ -47,16 +48,21 @@ export default function BaseLayout() {
         router.push(route.href)
         setCurrentRoute(route.id)
     }
+
+    // useEffect(() => {
+    //     if (pathname === '/p') setCurrentRoute(1)
+    //     else setCurrentRoute(routes.find(route => pathname.startsWith(route.href)).id)
+    // }, [pathname])
     return (
         <>
             <SafeAreaView style={layoutStyles.layout}>
                 <ScrollView style={{ ...layoutStyles.container, paddingTop: getPaddingTop(Platform.OS) }}>
-                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                        <Text style={{ fontSize: 24, fontWeight: "800" }}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center" }}>
+                        {/* <Text style={{ fontSize: 24, fontWeight: "800" }}>
                             {routes.find(route => route.id == currentRoute).title}
-                        </Text>
+                        </Text> */}
                         <Pressable onPress={() => handleRoutePush(routes.find(r => r.id == 4))} style={{ backgroundColor: currentRoute == 4 ? "orange" : "transparent", padding: 10, borderRadius: 20 }}>
-                            <ShoppingBagIcon size={30} color={currentRoute == 4 ? "white" : "orange"} />
+                            <CartButton currentRoute={currentRoute} />
                         </Pressable>
                     </View>
                     <Slot />
@@ -66,7 +72,7 @@ export default function BaseLayout() {
                 {
                     routes.filter(r => r.href != '/p/cart').map((route, i) => (
                         <Pressable onPress={() => handleRoutePush(route)} key={i} style={{ backgroundColor: currentRoute == route.id ? "orange" : "transparent", padding: 10, borderRadius: 20 }}>
-                            <route.icon.type  {...route.icon.props} size={30} color={currentRoute == route.id ? "white" : "#414048"} />
+                            <route.icon.type  {...route.icon.props} size={20} color={currentRoute == route.id ? "white" : "#414048"} />
                         </Pressable>
                     ))
                 }
@@ -84,15 +90,15 @@ const layoutStyles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: 20,
+        padding: 20,
     },
     bottomNavigation: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         backgroundColor: "aliceblue",
         paddingBottom: 30,
-        paddingTop: 20,
-        paddingHorizontal: 20
+        paddingTop: 16,
+        paddingHorizontal: 16
     }
 })
 

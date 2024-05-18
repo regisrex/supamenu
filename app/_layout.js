@@ -1,6 +1,7 @@
 import { Slot } from "expo-router"
 import { SafeAreaView, View } from "react-native"
 import { useFonts } from 'expo-font'
+import { CtxProvider } from "../hooks/useCtx";
 
 export default function BaseLayout() {
     const [fontsLoaded] = useFonts({
@@ -9,9 +10,11 @@ export default function BaseLayout() {
     console.log(fontsLoaded)
     return (
 
-        // <SafeAreaView>
+
         <View style={{ flex: 1, height: "100%", backgroundColor: 'aliceblue', fontFamily: "DM_Sans" }}>
-            <Slot />
+            <CtxProvider>
+                <Slot />
+            </CtxProvider>
         </View>
         // </SafeAreaView>
     )
