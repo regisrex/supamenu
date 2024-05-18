@@ -88,6 +88,14 @@ export const dummyData = {
                     price: 12.00
                 }
             ]
+        },
+        {
+            id: "1e564e11-8f23-4a8b-8d3c-73b764c0a8f5",
+            name: "Migano Coffee",
+            location: "Musanze, Mumujyi",
+            rating: 4,
+            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStRKUMnG-KJUyZ46r9oywL9ptA69qmc_xmmT-dAfkWvQ&s",
+            menu: []
         }
     ]
 }
